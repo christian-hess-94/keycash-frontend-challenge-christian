@@ -1,7 +1,7 @@
 /* eslint-disable no-alert */
 import React, {createContext, useContext, useState} from 'react';
 import {Alert} from 'react-native';
-import {Housing, HousingFilters} from '../interfaces/rest.interfaces';
+import {Housing, HousingFilters} from '../interfaces/housing.interfaces';
 import {fetchHousingData} from '../services/housing.service';
 
 export interface HousingContextData {

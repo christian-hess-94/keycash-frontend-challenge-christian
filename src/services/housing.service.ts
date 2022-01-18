@@ -1,4 +1,4 @@
-import {Housing} from '../interfaces/rest.interfaces';
+import {Housing} from '../interfaces/housing.interfaces';
 
 export const fetchHousingData = async (): Promise<
   [Housing[] | null, unknown]
