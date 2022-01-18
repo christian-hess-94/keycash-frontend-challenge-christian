@@ -6,17 +6,17 @@ import {fetchHousingData} from '../services/housing.service';
 
 export interface HousingContextData {
   selectedHousing?: Housing;
-  housings: Housing[];
+  allHousings: Housing[];
   loadingHousings: boolean;
   housingFilters: HousingFilters;
 
   setSelectedHousing: React.Dispatch<React.SetStateAction<Housing>>;
-  setHousings: React.Dispatch<React.SetStateAction<Housing[]>>;
+  setAllHousings: React.Dispatch<React.SetStateAction<Housing[]>>;
   setLoadingHousings: React.Dispatch<React.SetStateAction<boolean>>;
   setHousingFilters: React.Dispatch<React.SetStateAction<HousingFilters>>;
 
   handleGetHousingArray: () => void;
-  filterHousingArray: (arr: Housing[]) => Housing[];
+  handleApplyFilters: () => void;
 }
 
 const HousingContext = createContext<HousingContextData>(
@@ -24,7 +24,7 @@ const HousingContext = createContext<HousingContextData>(
 );
 
 export const HousingProvider: React.FC = ({children}) => {
-  const [housings, setHousings] = useState<Array<Housing>>([]);
+  const [allHousings, setAllHousings] = useState<Array<Housing>>([]);
   const [loadingHousings, setLoadingHousings] = useState(false);
   const [selectedHousing, setSelectedHousing] = useState<Housing>(
     {} as Housing,
@@ -70,6 +70,8 @@ export const HousingProvider: React.FC = ({children}) => {
     return sortedHousingArray;
   };
 
+  const handleApplyFilters = () => {};
+
   const handleGetHousingArray = async () => {
     const [housingArray, error] = await fetchHousingData();
     if (error) {
@@ -81,7 +83,7 @@ export const HousingProvider: React.FC = ({children}) => {
       const filteredHousingArray = filterHousingArray(sortedHousingArray);
       console.log('[Sorted + Filtered]', {length: filteredHousingArray.length});
       console.log(JSON.stringify(filteredHousingArray));
-      setHousings(filteredHousingArray || housingArray);
+      setAllHousings(filteredHousingArray || housingArray);
     }
   };
 
@@ -90,14 +92,15 @@ export const HousingProvider: React.FC = ({children}) => {
       value={{
         selectedHousing,
         setSelectedHousing,
-        housings,
+        allHousings,
         loadingHousings,
-        setHousings,
+        setAllHousings,
         setLoadingHousings,
-        handleGetHousingArray,
-        filterHousingArray,
         housingFilters,
         setHousingFilters,
+
+        handleGetHousingArray,
+        handleApplyFilters,
       }}>
       {children}
     </HousingContext.Provider>

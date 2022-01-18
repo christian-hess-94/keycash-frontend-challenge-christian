@@ -6,7 +6,7 @@ import {StyledMapView} from './styles';
 interface MapProps {}
 
 const Map: React.FunctionComponent<MapProps> = () => {
-  const {housings} = useHousing();
+  const {allHousings} = useHousing();
   return (
     <StyledMapView
       initialRegion={{
@@ -15,7 +15,7 @@ const Map: React.FunctionComponent<MapProps> = () => {
         latitudeDelta: 0.0522,
         longitudeDelta: 0.0221,
       }}>
-      {housings.map(
+      {allHousings.map(
         ({
           id,
           address: {
