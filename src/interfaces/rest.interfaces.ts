@@ -15,3 +15,12 @@ export interface Housing {
   usableArea: number;
   publish: boolean;
 }
+
+export interface HousingFilters {
+  filterPrice: string;
+  filterBathrooms: string;
+  filterBedrooms: string;
+  filterParkingSpaces: string;
+  filterUsableArea: string;
+  filterFormattedAddress: string;
+}
