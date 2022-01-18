@@ -79,6 +79,8 @@ export const HousingProvider: React.FC = ({children}) => {
     if (housingArray) {
       const sortedHousingArray = sortHousingData(housingArray);
       const filteredHousingArray = filterHousingArray(sortedHousingArray);
+      console.log('[Sorted + Filtered]', {length: filteredHousingArray.length});
+      console.log(JSON.stringify(filteredHousingArray));
       setHousings(filteredHousingArray || housingArray);
     }
   };
