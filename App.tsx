@@ -1,11 +1,14 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import Screens from './src/screens';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { StyledGestureHandlerRootView } from './global-styles';
 const App = () => {
   return (
-    <NavigationContainer>
-      <Screens />
-    </NavigationContainer>
+    <StyledGestureHandlerRootView>
+      <SafeAreaProvider>
+        <Screens />
+      </SafeAreaProvider>
+    </StyledGestureHandlerRootView>
   );
 };
 

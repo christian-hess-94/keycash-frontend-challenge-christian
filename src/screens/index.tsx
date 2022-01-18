@@ -1,4 +1,5 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import MapScreen from './map';
 
@@ -7,12 +8,14 @@ export type ScreensProps = {
 };
 
 const Screens: React.FC = () => {
-  const {Navigator, Screen} = createNativeStackNavigator<ScreensProps>();
+  const { Navigator, Screen } = createNativeStackNavigator<ScreensProps>();
 
   return (
-    <Navigator initialRouteName="MapScreen">
-      <Screen name="MapScreen" component={MapScreen} />
-    </Navigator>
+    <NavigationContainer>
+      <Navigator initialRouteName="MapScreen">
+        <Screen name="MapScreen" component={MapScreen} />
+      </Navigator>
+    </NavigationContainer>
   );
 };
 
