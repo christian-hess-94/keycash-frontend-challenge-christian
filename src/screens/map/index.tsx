@@ -1,10 +1,10 @@
 import React from 'react';
-import {Text} from 'react-native';
+import Map from '../../components/map';
 
 interface MapScreenProps {}
 
 const MapScreen: React.FunctionComponent<MapScreenProps> = ({}) => {
-  return <Text>Map Screen</Text>;
+  return <Map />;
 };
 
 export default MapScreen;
