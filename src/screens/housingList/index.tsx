@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
-import {Text, TextInput, View} from 'react-native';
+import {View} from 'react-native';
 import {Button, ScrollView} from 'react-native';
 import {ScreenStackParamList} from '..';
 import Card from '../../components/card';
