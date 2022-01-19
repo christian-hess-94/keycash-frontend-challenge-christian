@@ -10,6 +10,7 @@ import {StyledTextInput} from '../../components/housingInfo/styles';
 import {Row} from '../../components/layout/styles';
 import PaginationHeader from '../../components/paginationHeader';
 import useHousing from '../../contexts/housing.context';
+import usePagination from '../../contexts/pagination.context';
 import {Housing} from '../../interfaces/housing.interfaces';
 
 const HousingListScreen: React.FC<
@@ -18,6 +19,8 @@ const HousingListScreen: React.FC<
   const handleSeeFullDetails = (selectedHousing: Housing) => {
     navigate('HousingDetailsScreen', {selectedHousing});
   };
+
+  const {itemsPerPage, currentPage} = usePagination();
 
   const {
     housingFilters,
@@ -87,37 +90,45 @@ const HousingListScreen: React.FC<
         <Button title="Apply Filters" onPress={handleApplyFilters} />
       </Card>
       <PaginationHeader />
-      {filteredHousingArray.map(item => {
-        const {
-          address: {
-            formattedAddress,
-            geolocation: {lat, lng},
-          },
-          bathrooms,
-          bedrooms,
-          price,
-          id,
-        } = item;
-        return (
-          <Card
-            key={id}
-            title={formattedAddress}
-            subtitle={`${lat} : ${lng}`}
-            content={
-              <View>
-                <Row>
-                  <CardTextItem>{bathrooms} bathroom(s)</CardTextItem>
-                  <CardTextItem>{bedrooms} bedroom(s)</CardTextItem>
-                </Row>
-                <CardTextPrice>$ {price}</CardTextPrice>
-              </View>
-            }
-            buttons={[
-              {title: 'All details', onPress: () => handleSeeFullDetails(item)},
-            ]}
-          />
-        );
-      })}
+      {filteredHousingArray
+        .slice(
+          currentPage * parseInt(itemsPerPage, 10) - parseInt(itemsPerPage, 10),
+          currentPage * parseInt(itemsPerPage, 10),
+        )
+        .map((item, index) => {
+          const {
+            address: {
+              formattedAddress,
+              geolocation: {lat, lng},
+            },
+            bathrooms,
+            bedrooms,
+            price,
+            id,
+          } = item;
+          return (
+            <Card
+              key={id}
+              title={formattedAddress}
+              subtitle={`${lat} : ${lng}`}
+              content={
+                <View>
+                  <Row>
+                    <CardTextItem>{bathrooms} bathroom(s)</CardTextItem>
+                    <CardTextItem>{bedrooms} bedroom(s)</CardTextItem>
+                  </Row>
+                  <CardTextPrice>$ {price}</CardTextPrice>
+                </View>
+              }
+              buttons={[
+                {
+                  title: 'All details',
+                  onPress: () => handleSeeFullDetails(item),
+                },
+              ]}
+            />
+          );
+        })}
     </ScrollView>
   );
 };
