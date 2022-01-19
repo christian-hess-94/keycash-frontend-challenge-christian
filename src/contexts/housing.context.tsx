@@ -7,11 +7,13 @@ import {fetchHousingData} from '../services/housing.service';
 export interface HousingContextData {
   selectedHousing?: Housing;
   allHousings: Housing[];
+  filteredHousingArray: Housing[];
   loadingHousings: boolean;
   housingFilters: HousingFilters;
 
   setSelectedHousing: React.Dispatch<React.SetStateAction<Housing>>;
   setAllHousings: React.Dispatch<React.SetStateAction<Housing[]>>;
+  setFilteredHousingArray: React.Dispatch<React.SetStateAction<Housing[]>>;
   setLoadingHousings: React.Dispatch<React.SetStateAction<boolean>>;
   setHousingFilters: React.Dispatch<React.SetStateAction<HousingFilters>>;
 
@@ -25,6 +27,9 @@ const HousingContext = createContext<HousingContextData>(
 
 export const HousingProvider: React.FC = ({children}) => {
   const [allHousings, setAllHousings] = useState<Array<Housing>>([]);
+  const [filteredHousingArray, setFilteredHousingArray] = useState<
+    Array<Housing>
+  >([]);
   const [loadingHousings, setLoadingHousings] = useState(false);
   const [selectedHousing, setSelectedHousing] = useState<Housing>(
     {} as Housing,
@@ -42,6 +47,7 @@ export const HousingProvider: React.FC = ({children}) => {
   } = housingFilters;
 
   const filterHousingArray = (unfilteredHousingArray: Housing[]): Housing[] => {
+    console.log({housingFilters});
     return unfilteredHousingArray.filter(
       ({
         price,
@@ -53,12 +59,15 @@ export const HousingProvider: React.FC = ({children}) => {
         publish,
       }) => {
         return (
-          (price >= parseFloat(filterPrice) ||
-            bathrooms >= parseFloat(filterBathrooms) ||
-            bedrooms >= parseFloat(filterBedrooms) ||
-            parkingSpaces >= parseFloat(filterParkingSpaces) ||
-            usableArea >= parseFloat(filterUsableArea) ||
-            formattedAddress.toString().includes(filterFormattedAddress)) &&
+          bathrooms >= parseFloat(filterBathrooms || '0') &&
+          bedrooms >= parseFloat(filterBedrooms || '0') &&
+          price >= parseFloat(filterPrice || '0') &&
+          usableArea >= parseFloat(filterUsableArea || '0') &&
+          parkingSpaces >= parseFloat(filterParkingSpaces || '0') &&
+          formattedAddress
+            .toString()
+            .toLowerCase()
+            .includes(filterFormattedAddress.toLowerCase()) &&
           publish === true
         );
       },
@@ -70,7 +79,12 @@ export const HousingProvider: React.FC = ({children}) => {
     return sortedHousingArray;
   };
 
-  const handleApplyFilters = () => {};
+  const handleApplyFilters = () => {
+    const sortedHousingArray = sortHousingData(allHousings);
+    const filteredHousingArray = filterHousingArray(sortedHousingArray);
+    console.log('[Sorted + Filtered]', {length: filteredHousingArray.length});
+    setFilteredHousingArray(filteredHousingArray || allHousings);
+  };
 
   const handleGetHousingArray = async () => {
     const [housingArray, error] = await fetchHousingData();
@@ -79,11 +93,8 @@ export const HousingProvider: React.FC = ({children}) => {
       return;
     }
     if (housingArray) {
-      const sortedHousingArray = sortHousingData(housingArray);
-      const filteredHousingArray = filterHousingArray(sortedHousingArray);
-      console.log('[Sorted + Filtered]', {length: filteredHousingArray.length});
-      console.log(JSON.stringify(filteredHousingArray));
-      setAllHousings(filteredHousingArray || housingArray);
+      setAllHousings(housingArray);
+      handleApplyFilters();
     }
   };
 
@@ -98,7 +109,8 @@ export const HousingProvider: React.FC = ({children}) => {
         setLoadingHousings,
         housingFilters,
         setHousingFilters,
-
+        filteredHousingArray,
+        setFilteredHousingArray,
         handleGetHousingArray,
         handleApplyFilters,
       }}>

@@ -18,3 +18,14 @@ export const CardSubtitle = styled(Text)`
   font-size: 15px;
   color: darkslategray;
 `;
+export const CardTextItem = styled(Text)`
+  font-size: 13px;
+  color: darkslategray;
+`;
+export const CardTextPrice = styled(Text)`
+  font-size: 20px;
+  text-align: right;
+  margin: 8px;
+  font-weight: bold;
+  color: darkgreen;
+`;
