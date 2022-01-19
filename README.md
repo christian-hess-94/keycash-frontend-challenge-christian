@@ -1,3 +1,5 @@
+# English
+
 ### Keycash React Native Challenge
 
 #### To run
@@ -18,3 +20,29 @@
 #### To get the generated APK
 
 1. Navigate to `<rootDir>/android/app/build/outputs/apk/debug/app-debug.apk` and drag it into your smartphone or emulator to install
+
+---
+
+# Portuguese
+
+### Keycash React Native Challenge
+
+#### Para rodar
+
+1. Clone este repo
+1. Abra a pasta no seu terminal de escolha
+1. Execute `yarn` ou `npm install` para instalar as dependencias (certifique que tem o React Native instalado)
+1. Após a instalação, conecte seu smartphone ou abra um emulador e execute o comando `yarn android` ou `npm run android`
+
+#### To regenerar o APK
+
+1. Clone este repo
+1. Abra a pasta no seu terminal de escolha
+1. Execute `yarn` ou `npm install` para instalar as dependencias (certifique que tem o React Native instalado)
+1. Após a instalação, execute o comando `yarn build:android` ou `npm run build:android`
+1. Navegue para `<rootDir>/android/app/build/outputs/apk/debug/app-debug.apk` e arraste o arquivo para dentro do seu smartphone
+
+#### Como pegar a APK pré-gerada
+
+1. Navegue para `<rootDir>/android/app/build/outputs/apk/debug/app-debug.apk` e arraste o arquivo para dentro do seu smartphone
+
