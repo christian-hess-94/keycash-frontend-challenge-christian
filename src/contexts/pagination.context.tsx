@@ -2,15 +2,20 @@ import React, {useContext} from 'react';
 import {createContext, useState} from 'react';
 import {Housing} from '../interfaces/housing.interfaces';
 
+export enum ItemsPerPageOptions {
+  FIVE = '5',
+  TEN = '10',
+  FIFTEEN = '15',
+}
 interface PaginationContextData {
-  itemsPerPage: '5' | '10' | '15';
+  itemsPerPage: ItemsPerPageOptions;
   currentPage: number;
   lastPage: number;
   nextPage: () => void;
   previousPage: () => void;
-  calculateNumberOfPages: (arr: Housing[]) => void;
+  calculateNumberOfPages: (arr: Housing[], ipp?: ItemsPerPageOptions) => void;
 
-  setItemsPerPage: React.Dispatch<React.SetStateAction<'5' | '10' | '15'>>;
+  setItemsPerPage: React.Dispatch<React.SetStateAction<ItemsPerPageOptions>>;
 }
 
 const PaginationContext = createContext<PaginationContextData>(
@@ -18,13 +23,18 @@ const PaginationContext = createContext<PaginationContextData>(
 );
 
 export const PaginationProvider: React.FC = ({children}) => {
-  const [itemsPerPage, setItemsPerPage] = useState<'5' | '10' | '15'>('5');
+  const [itemsPerPage, setItemsPerPage] = useState<ItemsPerPageOptions>(
+    ItemsPerPageOptions.FIVE,
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const [lastPage, setLastPage] = useState(0);
 
-  const calculateNumberOfPages = (housingArray: Housing[]) => {
+  const calculateNumberOfPages = (
+    housingArray: Housing[],
+    ipp?: ItemsPerPageOptions,
+  ) => {
     const numberOfPages = Math.ceil(
-      housingArray.length / parseInt(itemsPerPage, 10),
+      housingArray.length / parseInt(ipp || itemsPerPage, 10),
     );
     setLastPage(numberOfPages);
     setCurrentPage(1);

@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useEffect} from 'react';
-import {View} from 'react-native';
-import {Button, ScrollView} from 'react-native';
+import {Button, View, ScrollView} from 'react-native';
 import {ScreenStackParamList} from '..';
 import Card from '../../components/card';
 import {CardTextItem, CardTextPrice} from '../../components/card/styles';
@@ -13,6 +12,8 @@ import useHousing from '../../contexts/housing.context';
 import usePagination from '../../contexts/pagination.context';
 import {Housing} from '../../interfaces/housing.interfaces';
 import {priceMask} from '../../utils/masks.utils';
+import {Picker} from '@react-native-picker/picker';
+import {StyledPicker, StyledPickerContainer, StyledPickerText} from './styles';
 
 const HousingListScreen: React.FC<
   NativeStackScreenProps<ScreenStackParamList, 'HousingListScreen'>
@@ -21,7 +22,8 @@ const HousingListScreen: React.FC<
     navigate('HousingDetailsScreen', {selectedHousing});
   };
 
-  const {itemsPerPage, currentPage} = usePagination();
+  const {itemsPerPage, currentPage, setItemsPerPage, calculateNumberOfPages} =
+    usePagination();
 
   const {
     housingFilters,
@@ -88,6 +90,19 @@ const HousingListScreen: React.FC<
           }
           keyboardType="number-pad"
         />
+        <StyledPickerContainer>
+          <StyledPickerText>Nº of items per page</StyledPickerText>
+          <StyledPicker
+            selectedValue={itemsPerPage}
+            onValueChange={itemValue => {
+              setItemsPerPage(itemValue);
+              calculateNumberOfPages(filteredHousingArray, itemValue);
+            }}>
+            <Picker.Item label="5" value="5" />
+            <Picker.Item label="10" value="10" />
+            <Picker.Item label="15" value="15" />
+          </StyledPicker>
+        </StyledPickerContainer>
         <Button title="Apply Filters" onPress={handleApplyFilters} />
       </Card>
       <PaginationHeader />
