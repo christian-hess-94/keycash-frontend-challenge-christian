@@ -23,8 +23,16 @@ const Screens: React.FC = () => {
         component={MapScreen}
         options={{header: () => null}}
       />
-      <Screen name="HousingListScreen" component={HousingListScreen} />
-      <Screen name="HousingDetailsScreen" component={HousingDetailsScreen} />
+      <Screen
+        name="HousingListScreen"
+        options={{title: 'Housing list'}}
+        component={HousingListScreen}
+      />
+      <Screen
+        name="HousingDetailsScreen"
+        options={{title: 'Housing Details'}}
+        component={HousingDetailsScreen}
+      />
     </Navigator>
   );
 };

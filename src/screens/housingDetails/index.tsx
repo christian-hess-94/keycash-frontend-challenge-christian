@@ -5,6 +5,7 @@ import {ScreenStackParamList} from '..';
 import Card from '../../components/card';
 import {Row} from '../../components/layout/styles';
 import {Housing} from '../../interfaces/housing.interfaces';
+import {priceMask} from '../../utils/masks.utils';
 import {
   HousingImageThumbnail,
   HousingInfoTextBig,
@@ -61,7 +62,7 @@ const HousingDetailsScreen: React.FC<
             </HousingInfoTextSmall>
           </Row>
         </Card>
-        <HousingPriceText>$ {price}</HousingPriceText>
+        <HousingPriceText>{priceMask(price)}</HousingPriceText>
       </Card>
       <FlatList
         data={images}

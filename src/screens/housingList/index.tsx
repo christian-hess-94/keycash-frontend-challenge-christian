@@ -12,6 +12,7 @@ import PaginationHeader from '../../components/paginationHeader';
 import useHousing from '../../contexts/housing.context';
 import usePagination from '../../contexts/pagination.context';
 import {Housing} from '../../interfaces/housing.interfaces';
+import {priceMask} from '../../utils/masks.utils';
 
 const HousingListScreen: React.FC<
   NativeStackScreenProps<ScreenStackParamList, 'HousingListScreen'>
@@ -117,7 +118,7 @@ const HousingListScreen: React.FC<
                     <CardTextItem>{bathrooms} bathroom(s)</CardTextItem>
                     <CardTextItem>{bedrooms} bedroom(s)</CardTextItem>
                   </Row>
-                  <CardTextPrice>$ {price}</CardTextPrice>
+                  <CardTextPrice>{priceMask(price)}</CardTextPrice>
                 </View>
               }
               buttons={[
