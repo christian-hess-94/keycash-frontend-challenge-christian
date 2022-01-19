@@ -35,7 +35,12 @@ export const HousingProvider: React.FC = ({children}) => {
     {} as Housing,
   );
   const [housingFilters, setHousingFilters] = useState<HousingFilters>({
-    filterBedrooms: '0',
+    filterPrice: '',
+    filterBathrooms: '',
+    filterBedrooms: '',
+    filterParkingSpaces: '',
+    filterUsableArea: '',
+    filterFormattedAddress: '',
   } as HousingFilters);
   const {
     filterPrice,
@@ -67,7 +72,7 @@ export const HousingProvider: React.FC = ({children}) => {
           formattedAddress
             .toString()
             .toLowerCase()
-            .includes(filterFormattedAddress.toLowerCase()) &&
+            .includes(filterFormattedAddress.toString().toLowerCase()) &&
           publish === true
         );
       },

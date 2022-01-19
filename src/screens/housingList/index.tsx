@@ -9,10 +9,15 @@ import {CardTextItem, CardTextPrice} from '../../components/card/styles';
 import {StyledTextInput} from '../../components/housingInfo/styles';
 import {Row} from '../../components/layout/styles';
 import useHousing from '../../contexts/housing.context';
+import {Housing} from '../../interfaces/housing.interfaces';
 
 const HousingListScreen: React.FC<
   NativeStackScreenProps<ScreenStackParamList, 'HousingListScreen'>
-> = () => {
+> = ({navigation: {navigate}}) => {
+  const handleSeeFullDetails = (selectedHousing: Housing) => {
+    navigate('HousingDetailsScreen', {selectedHousing});
+  };
+
   const {
     housingFilters,
     setHousingFilters,
@@ -99,7 +104,7 @@ const HousingListScreen: React.FC<
               </View>
             }
             buttons={[
-              {title: 'All details', onPress: () => handleApplyFilters()},
+              {title: 'All details', onPress: () => handleSeeFullDetails(item)},
             ]}
           />
         );
