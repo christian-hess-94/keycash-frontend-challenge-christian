@@ -68,7 +68,10 @@ export const HousingProvider: React.FC = ({children}) => {
         bedrooms,
         parkingSpaces,
         usableArea,
-        address: {formattedAddress},
+        address: {
+          formattedAddress,
+          geolocation: {lat, lng},
+        },
         publish,
       }) => {
         return (
@@ -81,7 +84,9 @@ export const HousingProvider: React.FC = ({children}) => {
             .toString()
             .toLowerCase()
             .includes(filterFormattedAddress.toString().toLowerCase()) &&
-          publish === true
+          publish === true &&
+          !!lat === true &&
+          !!lng === true
         );
       },
     );
