@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View} from 'react-native';
 import {Button, ScrollView} from 'react-native';
 import {ScreenStackParamList} from '..';
@@ -24,6 +24,11 @@ const HousingListScreen: React.FC<
     handleApplyFilters,
     filteredHousingArray,
   } = useHousing();
+
+  useEffect(() => {
+    handleApplyFilters();
+  }, []);
+
   return (
     <ScrollView>
       <Card title={`Filters (${filteredHousingArray.length})`}>
@@ -89,9 +94,11 @@ const HousingListScreen: React.FC<
           bathrooms,
           bedrooms,
           price,
+          id,
         } = item;
         return (
           <Card
+            key={id}
             title={formattedAddress}
             subtitle={`${lat} : ${lng}`}
             content={

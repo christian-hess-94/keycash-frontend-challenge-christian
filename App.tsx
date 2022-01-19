@@ -2,13 +2,16 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import Screens from './src/screens';
 import {HousingProvider} from './src/contexts/housing.context';
+import {PaginationProvider} from './src/contexts/pagination.context';
 const App = () => {
   return (
-    <HousingProvider>
-      <NavigationContainer>
-        <Screens />
-      </NavigationContainer>
-    </HousingProvider>
+    <PaginationProvider>
+      <HousingProvider>
+        <NavigationContainer>
+          <Screens />
+        </NavigationContainer>
+      </HousingProvider>
+    </PaginationProvider>
   );
 };
 
