@@ -3,6 +3,7 @@ import React, {createContext, useContext, useState} from 'react';
 import {Alert} from 'react-native';
 import {Housing, HousingFilters} from '../interfaces/housing.interfaces';
 import {fetchHousingData} from '../services/housing.service';
+import usePagination from './pagination.context';
 
 export interface HousingContextData {
   selectedHousing?: Housing;
@@ -27,13 +28,17 @@ const HousingContext = createContext<HousingContextData>(
 
 export const HousingProvider: React.FC = ({children}) => {
   const [allHousings, setAllHousings] = useState<Array<Housing>>([]);
+
   const [filteredHousingArray, setFilteredHousingArray] = useState<
     Array<Housing>
   >([]);
+
   const [loadingHousings, setLoadingHousings] = useState(false);
+
   const [selectedHousing, setSelectedHousing] = useState<Housing>(
     {} as Housing,
   );
+
   const [housingFilters, setHousingFilters] = useState<HousingFilters>({
     filterPrice: '',
     filterBathrooms: '',
@@ -42,6 +47,9 @@ export const HousingProvider: React.FC = ({children}) => {
     filterUsableArea: '',
     filterFormattedAddress: '',
   } as HousingFilters);
+
+  const {calculateNumberOfPages} = usePagination();
+
   const {
     filterPrice,
     filterBathrooms,
@@ -89,6 +97,7 @@ export const HousingProvider: React.FC = ({children}) => {
     const filteredHousingArray = filterHousingArray(sortedHousingArray);
     console.log('[Sorted + Filtered]', {length: filteredHousingArray.length});
     setFilteredHousingArray(filteredHousingArray || allHousings);
+    calculateNumberOfPages(filteredHousingArray);
   };
 
   const handleGetHousingArray = async () => {

@@ -19,13 +19,15 @@ const PaginationContext = createContext<PaginationContextData>(
 
 export const PaginationProvider: React.FC = ({children}) => {
   const [itemsPerPage, setItemsPerPage] = useState<'5' | '10' | '15'>('5');
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [lastPage, setLastPage] = useState(0);
 
   const calculateNumberOfPages = (housingArray: Housing[]) => {
-    const numberOfPages = housingArray.length / parseInt(itemsPerPage, 10);
-    setLastPage(numberOfPages - 1);
-    setCurrentPage(0);
+    const numberOfPages = Math.ceil(
+      housingArray.length / parseInt(itemsPerPage, 10),
+    );
+    setLastPage(numberOfPages);
+    setCurrentPage(1);
   };
 
   const nextPage = () => {
@@ -35,7 +37,7 @@ export const PaginationProvider: React.FC = ({children}) => {
   };
 
   const previousPage = () => {
-    if (currentPage !== 0) {
+    if (currentPage !== 1) {
       setCurrentPage(currentPage - 1);
     }
   };

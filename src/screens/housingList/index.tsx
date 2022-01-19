@@ -8,6 +8,7 @@ import Card from '../../components/card';
 import {CardTextItem, CardTextPrice} from '../../components/card/styles';
 import {StyledTextInput} from '../../components/housingInfo/styles';
 import {Row} from '../../components/layout/styles';
+import PaginationHeader from '../../components/paginationHeader';
 import useHousing from '../../contexts/housing.context';
 import {Housing} from '../../interfaces/housing.interfaces';
 
@@ -85,6 +86,7 @@ const HousingListScreen: React.FC<
         />
         <Button title="Apply Filters" onPress={handleApplyFilters} />
       </Card>
+      <PaginationHeader />
       {filteredHousingArray.map(item => {
         const {
           address: {
