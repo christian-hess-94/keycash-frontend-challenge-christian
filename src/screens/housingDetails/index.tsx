@@ -1,11 +1,12 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
-import {ScrollView} from 'react-native';
+import {FlatList} from 'react-native';
 import {ScreenStackParamList} from '..';
 import Card from '../../components/card';
 import {Row} from '../../components/layout/styles';
 import {Housing} from '../../interfaces/housing.interfaces';
 import {
+  HousingImageThumbnail,
   HousingInfoTextBig,
   HousingInfoTextSmall,
   HousingInfoTooltip,
@@ -62,6 +63,13 @@ const HousingDetailsScreen: React.FC<
         </Card>
         <HousingPriceText>$ {price}</HousingPriceText>
       </Card>
+      <FlatList
+        data={images}
+        numColumns={3}
+        renderItem={({item}) => {
+          return <HousingImageThumbnail source={{uri: item}} />;
+        }}
+      />
     </StyledScrollView>
   );
 };

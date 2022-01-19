@@ -1,4 +1,4 @@
-import {ScrollView, Text} from 'react-native';
+import {Image, ScrollView, Text} from 'react-native';
 import styled from 'styled-components/native';
 
 export const StyledScrollView = styled(ScrollView)`
@@ -27,4 +27,12 @@ export const HousingPriceText = styled(Text)`
   color: darkgreen;
   margin: 8px;
   text-align: center;
+`;
+export const HousingImageThumbnail = styled(Image).attrs(() => ({
+  resizeMode: 'cover',
+  resizeMethod: 'scale',
+}))`
+  height: 240px;
+  width: 33%;
+  margin: 4px;
 `;
