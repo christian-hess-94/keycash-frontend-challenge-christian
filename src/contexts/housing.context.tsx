@@ -93,7 +93,7 @@ export const HousingProvider: React.FC = ({children}) => {
   };
 
   const sortHousingData = (housingArray: Housing[]): Housing[] => {
-    const sortedHousingArray = housingArray.sort((a, b) => a.price - b.price);
+    const sortedHousingArray = housingArray.sort((a, b) => b.price - a.price);
     return sortedHousingArray;
   };
 
