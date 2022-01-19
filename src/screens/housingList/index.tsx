@@ -95,7 +95,7 @@ const HousingListScreen: React.FC<
           currentPage * parseInt(itemsPerPage, 10) - parseInt(itemsPerPage, 10),
           currentPage * parseInt(itemsPerPage, 10),
         )
-        .map((item, index) => {
+        .map(item => {
           const {
             address: {
               formattedAddress,
